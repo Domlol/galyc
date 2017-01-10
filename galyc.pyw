@@ -11,13 +11,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 # Sources propres à Galyc
-from profThread import *    # Classe du thread prof
-from eleveThread import *    # Classe du thread élève
-from compteThread import *    # Classe du thread compte
-from groupeThread import *    # Classe du thread groupe
-from getGroupsThread import * # Thread qui récupère la liste des groupes et classes
-from mdpDialog import *     # Classe du dialogue mot de passe
-import ui_galycDialog  # L'UI
+from profThread import *        # Classe du thread prof
+from eleveThread import *       # Classe du thread élève
+from compteThread import *      # Classe du thread compte
+from groupeThread import *      # Classe du thread groupe
+from getGroupsThread import *   # Thread qui récupère la liste des groupes et classes
+from mdpDialog import *         # Classe du dialogue mot de passe
+import ui_galycDialog           # L'UI
 
 # Fichier de ressources (images...)
 import ressources_rc
@@ -40,6 +40,7 @@ class Galyc(QDialog, ui_galycDialog.Ui_galycDialog):
 
         self.ipDict={'Utilisation distante': '194.254.62.70','Utilisation locale': '10.186.21.2'}
         self.ipCombo.addItems(self.ipDict.keys())
+        self.ipCombo.setCurrentText('Utilisation distante')
         self.toolButton.setFocus()
         self.progressBar.setMaximum(100)
         self.progressBar.setVisible(False)
@@ -353,9 +354,9 @@ class Galyc(QDialog, ui_galycDialog.Ui_galycDialog):
         '''Création du dialogue Mot de passe'''
         mdpDialog = MdpDialog(parent=self)
         ##### Temporaire :
-        mdpDialog.lineAdmin.setText(u"script")
-        mdpDialog.lineAdmin.hide()
-        mdpDialog.labelAdmin.hide()
+        #mdpDialog.lineAdmin.setText(u"script")
+        #mdpDialog.lineAdmin.hide()
+        #mdpDialog.labelAdmin.hide()
         #####
         mdpDialog.mdpSend.connect(self.mdpSent)
         mdpDialog.show()
@@ -399,7 +400,7 @@ class Galyc(QDialog, ui_galycDialog.Ui_galycDialog):
             u"A propos de Galyc",
             u"<center><b>Galyc</b> est développé par <a href=\"mailto:gwencleon@gmail.com\">Gwenaël Cléon</a> \
             à l'aide de PyQt5. \
-            <p>Version 1.0.22</center>")
+            <p>Version 1.1</center>")
 
     def formatNoms(self,input_str):
         eudanlo=u"\u0153"

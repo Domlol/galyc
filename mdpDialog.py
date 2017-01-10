@@ -18,10 +18,7 @@ class MdpDialog(QDialog, ui_mdpDialog.Ui_mdpDialog):
 
     def getPass(self):
         '''Exécuté quand on clic sur Ok'''
-#        self.password = unicode(self.mdpEdit.text())
         self.password = self.mdpEdit.text()
-        print(self.password)
-#        self.adminLogin=unicode(self.lineAdmin.text())
         self.adminLogin = self.lineAdmin.text()
         if len(self.password)==0:
             QMessageBox.warning(self, "", "Remplissez le champ \"Mot de passe\" !")

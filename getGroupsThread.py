@@ -35,12 +35,12 @@ class GetGroupsThread(QThread):
 
             anneeData = stdout.read().splitlines()
             for line in anneeData:
-                if re.match('^(annee=(?:[0-9]{4}))',line):
-                    annee=line[6:]
+                if re.match(b'^(annee=(?:[0-9]{4}))',line):
+                    annee=line[6:].decode("utf-8")
             self.parent.annee=annee # On l'assigne à la variable du parent
 
             # On récupère la liste des groupes
-            stdin, stdout, stderr = sshTest.exec_command("ldapsearch -xLLL '(&(objectClass=posixGroup)(cn=*))' cn")
+            stdin, stdout, stderr = sshTest.exec_command("sudo ldapsearch -xLLL '(&(objectClass=posixGroup)(cn=*))' cn")
             data = stdout.read().splitlines()
             classeList=[]
             groupList=[]
@@ -48,11 +48,11 @@ class GetGroupsThread(QThread):
                                                 "Domain Computers","Domain Guests","Domain Users",
                                                     "Print Operators","Replicators"]
             for line in data:
-                if re.match('^(cn: (?![0-9]{4}_))',line):
-                    if line[3:].strip() not in groupesAEnlever:
-                        groupList.append(line[3:].strip())
-                if re.match('^(cn: (?=%s_))'%annee,line):
-                    classeList.append(line[9:].strip())
+                if re.match(b'^(cn: (?![0-9]{4}_))',line):
+                    if line[3:].decode("utf-8").strip() not in groupesAEnlever:
+                        groupList.append(line[3:].decode("utf-8").strip())
+                if re.match('^(cn: (?=%s_))'%annee,line.decode("utf-8")):
+                    classeList.append(line[9:].decode("utf-8").strip())
 
             self.parent.classesList=classeList
             self.parent.groupesList=groupList
